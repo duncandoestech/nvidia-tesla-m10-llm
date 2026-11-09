@@ -1,0 +1,16 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.9.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"build_commit": "unknown", "build_number": 0, "cpu_info": "Intel(R) Core(TM) i7-3930K CPU @ 3.20GHz", "gpu_info": "Tesla M10", "backends": "CUDA", "model_filename": "models/llama-2-7b.Q4_0.gguf", "model_type": "llama 7B Q4_0", "model_size": 3825065984, "model_n_params": 6738415616, "n_batch": 2048, "n_ubatch": 512, "n_threads": 6, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": 99, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": 1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 0, "n_gen": 128, "n_depth": 0, "test_time": "2026-11-08T06:53:14Z", "avg_ns": 16164444965, "stddev_ns": 249019307, "avg_ts": 7.919858, "stddev_ts": 0.121105, "samples_ns": [ 16446832325, 16070194333, 15976308237 ],"samples_ts": [ 7.78265, 7.96506, 8.01186 ]}

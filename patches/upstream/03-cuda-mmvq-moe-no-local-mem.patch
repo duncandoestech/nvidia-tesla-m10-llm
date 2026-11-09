@@ -1,0 +1,35 @@
+diff --git a/ggml/src/ggml-cuda/mmvq.cu b/ggml/src/ggml-cuda/mmvq.cu
+index 8f79123af..1e49b8a28 100644
+--- a/ggml/src/ggml-cuda/mmvq.cu
++++ b/ggml/src/ggml-cuda/mmvq.cu
+@@ -981,7 +981,14 @@ static __global__ void mul_mat_vec_q_moe(
+ 
+     // Write results
+     if (threadIdx.x < c_rows_per_block && (c_rows_per_block == 1 || uint32_t(row0 + threadIdx.x) < nrows_x)) {
+-        float result = tmp[threadIdx.x];
++        // Index tmp with a compile-time i, threadIdx.x indexing puts it in local memory.
++        float result = tmp[0];
++#pragma unroll
++        for (int i = 1; i < c_rows_per_block; ++i) {
++            if (threadIdx.x == i) {
++                result = tmp[i];
++            }
++        }
+         if constexpr (has_fusion) {
+             const uint32_t bias_idx = channel_x*stride_channel_dst + row0 + threadIdx.x;
+ 
+@@ -994,7 +1001,13 @@ static __global__ void mul_mat_vec_q_moe(
+                 result += x_bias[bias_idx];
+             }
+             if (use_gate) {
+-                float gate_value = tmp_gate[threadIdx.x];
++                float gate_value = tmp_gate[0];
++#pragma unroll
++                for (int i = 1; i < c_rows_per_block; ++i) {
++                    if (threadIdx.x == i) {
++                        gate_value = tmp_gate[i];
++                    }
++                }
+                 if constexpr (type == GGML_TYPE_NVFP4) {
+                     if (gate_scale) {
+                         gate_value *= gate_scale[channel_x];

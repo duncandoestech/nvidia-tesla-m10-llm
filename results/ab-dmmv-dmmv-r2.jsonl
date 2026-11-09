@@ -1,0 +1,17 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.9.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"build_commit": "unknown", "build_number": 0, "cpu_info": "Intel(R) Core(TM) i7-3930K CPU @ 3.20GHz", "gpu_info": "Tesla M10", "backends": "CUDA", "model_filename": "models/llama-2-7b.Q4_0.gguf", "model_type": "llama 7B Q4_0", "model_size": 3825065984, "model_n_params": 6738415616, "n_batch": 2048, "n_ubatch": 512, "n_threads": 6, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": 99, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": false, "tensor_split": "0.00", "use_mmap": true, "embeddings": false, "n_prompt": 512, "n_gen": 0, "test_time": "2026-11-08T06:32:47Z", "avg_ns": 7850710970, "stddev_ns": 25424623, "avg_ts": 65.217478, "stddev_ts": 0.210826, "samples_ns": [ 7838255102, 7879961719, 7833916089 ],"samples_ts": [ 65.3207, 64.9749, 65.3568 ]}
+{"build_commit": "unknown", "build_number": 0, "cpu_info": "Intel(R) Core(TM) i7-3930K CPU @ 3.20GHz", "gpu_info": "Tesla M10", "backends": "CUDA", "model_filename": "models/llama-2-7b.Q4_0.gguf", "model_type": "llama 7B Q4_0", "model_size": 3825065984, "model_n_params": 6738415616, "n_batch": 2048, "n_ubatch": 512, "n_threads": 6, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": 99, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": false, "tensor_split": "0.00", "use_mmap": true, "embeddings": false, "n_prompt": 0, "n_gen": 128, "test_time": "2026-11-08T06:33:19Z", "avg_ns": 47353658321, "stddev_ns": 286340196, "avg_ts": 2.703131, "stddev_ts": 0.016386, "samples_ns": [ 47034336029, 47587586982, 47439051952 ],"samples_ts": [ 2.72142, 2.68978, 2.6982 ]}

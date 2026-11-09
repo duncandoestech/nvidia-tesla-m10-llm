@@ -1,0 +1,59 @@
+== A: build ik_llama.cpp (d2488475 Sun Nov 8 11:09:25 2026 +0200)
+IK BUILD FAIL
+  extensions), but CMake does not know the compile flags to use to enable it.
+
+
+-- Generating done
+CMake Generate step failed.  Build files cannot be regenerated correctly.
+== C: MoE MTP speculative decoding (best build, 4 GPUs, llama-server)
+  p9-moe-nospec 14.15 t/s  draft 0 accepted 0
+  p9-moe-nospec 14.04 t/s  draft 0 accepted 0
+  p9-moe-nospec 15.16 t/s  draft 0 accepted 0
+  p9-moe-nospec TOTAL 14.66 t/s  acceptance 0.00% (0/0)
+  p9-moe-mtp1 16.66 t/s  draft 32 accepted 31
+  p9-moe-mtp1 16.11 t/s  draft 34 accepted 28
+  p9-moe-mtp1 17.45 t/s  draft 35 accepted 28
+  p9-moe-mtp1 TOTAL 16.99 t/s  acceptance 86.14% (87/101)
+  p9-moe-mtp2 18.62 t/s  draft 44 accepted 40
+  p9-moe-mtp2 15.93 t/s  draft 54 accepted 36
+  p9-moe-mtp2 18.01 t/s  draft 51 accepted 37
+  p9-moe-mtp2 TOTAL 17.72 t/s  acceptance 75.84% (113/149)
+  p9-moe-mtp3 18.00 t/s  draft 54 accepted 44
+  p9-moe-mtp3 13.99 t/s  draft 76 accepted 37
+  p9-moe-mtp3 15.46 t/s  draft 69 accepted 39
+  p9-moe-mtp3 TOTAL 15.90 t/s  acceptance 60.30% (120/199)
+== D: MoE ubatch 2048 (best)
+p9-moe-ub rc=0 prod_busy_before=0 prod_busy_after=1 maxT= 51 maxP= 59.96 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=4096 ub=1024 sm=layer pp2048     99.30 ± 0.34
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=4096 ub=2048 sm=layer pp2048    109.36 ± 0.57
+== E: power-cap sweep (all 4 M10 GPUs)
+-- cap 53 W: 53.00 W
+p9-pl53-2b rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 57 maxP= 53.46 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     286.81 ± 1.83
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      41.03 ± 0.78
+p9-pl53-moe rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 47 maxP= 53.50 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      87.19 ± 0.97
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.83 ± 0.01
+-- cap 45 W: 45.00 W
+p9-pl45-2b rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 49 maxP= 46.00 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     265.81 ± 10.78
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      35.75 ± 0.17
+p9-pl45-moe rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 45 maxP= 48.11 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      77.45 ± 0.26
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.79 ± 0.00
+-- cap 38 W: 38.00 W
+p9-pl38-2b rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 47 maxP= 41.09 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     204.21 ± 2.37
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      28.08 ± 0.36
+p9-pl38-moe rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 44 maxP= 42.24 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      66.68 ± 0.58
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.36 ± 0.06
+-- cap 30 W: 30.00 W
+p9-pl30-2b rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 45 maxP= 35.10 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     155.86 ± 1.27
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      22.12 ± 0.54
+p9-pl30-moe rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 43 maxP= 36.92 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      48.18 ± 0.48
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.10 ± 0.00
+power limits restored: 53.00 W 53.00 W 53.00 W 53.00 W 
+PHASE9_DONE

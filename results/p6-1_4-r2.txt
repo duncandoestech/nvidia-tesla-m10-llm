@@ -1,0 +1,27 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.9.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+
+llama_batched_bench: n_kv_max = 8192, n_batch = 2048, n_ubatch = 512, flash_attn = 1, is_pp_shared = 0, is_tg_separate = 0, n_gpu_layers = 99, n_threads = 6, n_threads_batch = 6
+
+|    PP |     TG |    B |   N_KV |   T_PP s | S_PP t/s |   T_TG s | S_TG t/s |      T s |    S t/s |
+|-------|--------|------|--------|----------|----------|----------|----------|----------|----------|
+|   128 |    128 |    1 |    256 |    0.692 |   184.84 |    3.417 |    37.45 |    4.110 |    62.29 |
+|   128 |    128 |    2 |    512 |    1.020 |   251.05 |    4.343 |    58.95 |    5.363 |    95.47 |
+|   128 |    128 |    3 |    768 |    1.371 |   280.03 |    6.044 |    63.53 |    7.415 |   103.57 |
+|   128 |    128 |    4 |   1024 |    1.725 |   296.75 |    7.566 |    67.67 |    9.291 |   110.21 |
+|   128 |    128 |    6 |   1536 |    3.029 |   253.56 |   10.040 |    76.49 |   13.069 |   117.53 |
+|   128 |    128 |    8 |   2048 |    3.508 |   291.90 |   13.112 |    78.10 |   16.620 |   123.22 |
+

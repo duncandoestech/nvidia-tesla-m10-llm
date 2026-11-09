@@ -1,0 +1,1 @@
+{"tag": "embeddinggemma-300m-q8+rerank-rr", "ndcg10": 0.7885784142459001, "recall100": 0.9866666666666667, "docs_per_s": NaN, "ndcg10_reranked": 0.7819702268489948, "rerank_s_per_query": 13.486725702285767}

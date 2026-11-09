@@ -1,0 +1,80 @@
+built build-best
+built build-best-moerpb4
+== spill check (mmvq kernels with a stack frame)
+build-best:     317 STACK:0 
+build-best-moerpb4:     317 STACK:0 
+== correctness
+build-best MUL_MAT: /data/m10/llama.cpp-tune/ggml/src/ggml-cuda/ggml-cuda.cu:1710: GGML_ASSERT(convert_func != nullptr) failed 
+build-best MUL_MAT_ID:   931/931 tests passed 
+build-best-moerpb4 MUL_MAT: /data/m10/llama.cpp-tune/ggml/src/ggml-cuda/ggml-cuda.cu:1710: GGML_ASSERT(convert_func != nullptr) failed 
+build-best-moerpb4 MUL_MAT_ID:   931/931 tests passed 
+== dense head-to-head (GPU 0): stock vs single-tuned vs best
+p8-stock-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 51 maxP= 52.44 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     288.72 ± 4.29
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      23.40 ± 0.00
+p8-nw1rpb4-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 52 maxP= 54.92 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     287.47 ± 2.73
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      37.57 ± 0.71
+p8-best-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 54 maxP= 52.84 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     284.53 ± 1.48
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      41.69 ± 0.40
+p8-stock-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 57 maxP= 55.84 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.68 ± 0.32
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128       8.09 ± 0.00
+p8-nw1rpb4-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 58 maxP= 56.10 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.61 ± 0.10
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.07 ± 0.10
+p8-best-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 58 maxP= 55.29 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.28 ± 0.41
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      13.59 ± 0.11
+p8-stock-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 58 maxP= 54.44 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     285.48 ± 3.96
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      23.40 ± 0.00
+p8-nw1rpb4-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 57 maxP= 55.00 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     284.13 ± 2.40
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      37.21 ± 0.67
+p8-best-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 57 maxP= 53.12 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     282.41 ± 1.60
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      40.75 ± 0.39
+p8-stock-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 60 maxP= 55.28 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.77 ± 0.38
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128       8.40 ± 0.51
+p8-nw1rpb4-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 59 maxP= 56.60 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.42 ± 0.31
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      13.58 ± 0.82
+p8-best-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 59 maxP= 55.65 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.49 ± 0.15
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      13.26 ± 0.09
+== MoE head-to-head (4 GPUs, layer): nw1rpb4 vs best vs best-moerpb4
+p8-moe-nw1rpb4 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 48 maxP= 51.88 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      68.74 ± 0.59
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      14.51 ± 0.00
+p8-moe-best rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 44 maxP= 50.23 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      72.15 ± 1.25
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.01 ± 0.01
+p8-moe-best-moerpb4 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 44 maxP= 50.70 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      70.14 ± 3.77
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.00 ± 0.03
+== MoE batched decode (4 GPUs): best vs best-moerpb4 vs nw1rpb4
+-- nw1rpb4
+|    PP |     TG |    B |   N_KV |   T_PP s | S_PP t/s |   T_TG s | S_TG t/s |      T s |    S t/s |
+|-------|--------|------|--------|----------|----------|----------|----------|----------|----------|
+|   128 |     64 |    1 |    192 |    5.848 |    21.89 |    4.573 |    14.00 |   10.421 |    18.42 |
+|   128 |     64 |    2 |    384 |    4.766 |    53.71 |    6.762 |    18.93 |   11.528 |    33.31 |
+|   128 |     64 |    4 |    768 |    8.005 |    63.96 |   11.501 |    22.26 |   19.506 |    39.37 |
+|   128 |     64 |    8 |   1536 |   14.835 |    69.03 |   25.074 |    20.42 |   39.909 |    38.49 |
+-- best
+|    PP |     TG |    B |   N_KV |   T_PP s | S_PP t/s |   T_TG s | S_TG t/s |      T s |    S t/s |
+|-------|--------|------|--------|----------|----------|----------|----------|----------|----------|
+|   128 |     64 |    1 |    192 |    5.590 |    22.90 |    4.331 |    14.78 |    9.921 |    19.35 |
+|   128 |     64 |    2 |    384 |    4.470 |    57.27 |    6.119 |    20.92 |   10.590 |    36.26 |
+|   128 |     64 |    4 |    768 |    7.511 |    68.17 |   10.379 |    24.67 |   17.890 |    42.93 |
+|   128 |     64 |    8 |   1536 |   14.099 |    72.63 |   21.238 |    24.11 |   35.336 |    43.47 |
+-- best-moerpb4
+|    PP |     TG |    B |   N_KV |   T_PP s | S_PP t/s |   T_TG s | S_TG t/s |      T s |    S t/s |
+|-------|--------|------|--------|----------|----------|----------|----------|----------|----------|
+|   128 |     64 |    1 |    192 |    5.632 |    22.73 |    4.384 |    14.60 |   10.016 |    19.17 |
+|   128 |     64 |    2 |    384 |    4.461 |    57.39 |    5.841 |    21.91 |   10.302 |    37.27 |
+|   128 |     64 |    4 |    768 |    7.535 |    67.95 |    9.755 |    26.24 |   17.290 |    44.42 |
+|   128 |     64 |    8 |   1536 |   14.122 |    72.51 |   20.992 |    24.39 |   35.113 |    43.74 |
+PHASE8_DONE

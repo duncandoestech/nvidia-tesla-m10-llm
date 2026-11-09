@@ -1,0 +1,19 @@
+== Nemotron-3.5 30B-A3B Q4, best build, 4 GPUs
+p11-nemotron-best rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 57.34 W
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=4096 ub=512 sm=layer pp2048     71.44 ± 0.34
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=4096 ub=512 sm=layer tg128      17.39 ± 0.06
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=4096 ub=2048 sm=layer pp2048     99.54 ± 4.61
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=4096 ub=2048 sm=layer tg128      17.31 ± 0.01
+== recommended MoE serving config: Q4 + MTP 2 + ub 2048 (llama-server), 53 W then 38 W
+-- cap 53 W
+  p11-moe-rec-pl53 17.25 t/s  draft 44 accepted 40
+  p11-moe-rec-pl53 15.37 t/s  draft 54 accepted 36
+  p11-moe-rec-pl53 17.23 t/s  draft 51 accepted 37
+  p11-moe-rec-pl53 TOTAL 16.83 t/s  acceptance 75.84% (113/149)
+-- cap 38 W
+  p11-moe-rec-pl38 17.81 t/s  draft 44 accepted 40
+  p11-moe-rec-pl38 15.22 t/s  draft 54 accepted 36
+  p11-moe-rec-pl38 17.08 t/s  draft 51 accepted 37
+  p11-moe-rec-pl38 TOTAL 16.90 t/s  acceptance 75.84% (113/149)
+power limits restored: 53.00 W 53.00 W 53.00 W 53.00 W 
+PHASE11_DONE

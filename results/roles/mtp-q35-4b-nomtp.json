@@ -1,0 +1,1 @@
+{"tag": "q35-4b-nomtp", "mean_tps": 18.842336952967152, "runs": [{"tps": 17.613386173491854, "n": 256, "draft_n": null, "draft_acc": null}, {"tps": 19.560632899235582, "n": 256, "draft_n": null, "draft_acc": null}, {"tps": 19.059127842351266, "n": 256, "draft_n": null, "draft_acc": null}, {"tps": 19.136200896789916, "n": 256, "draft_n": null, "draft_acc": null}]}

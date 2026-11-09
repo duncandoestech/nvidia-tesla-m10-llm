@@ -1,0 +1,146 @@
+[
+ {
+  "file": "ocr_00_sentence_clean.png",
+  "kind": "sentence",
+  "effect": "clean",
+  "text": "Memory socket fox jumps lazy network fox token.\nOver process thread jumps kernel over."
+ },
+ {
+  "file": "ocr_01_numbers_clean.png",
+  "kind": "numbers",
+  "effect": "clean",
+  "text": "Order #65642  SKU A946-82  Qty 8  $971.28"
+ },
+ {
+  "file": "ocr_02_code_clean.png",
+  "kind": "code",
+  "effect": "clean",
+  "text": "def add(a, b):\n    return a + b"
+ },
+ {
+  "file": "ocr_03_receipt_clean.png",
+  "kind": "receipt",
+  "effect": "clean",
+  "text": "Rice x1  8.05\nMilk x3  14.18\nBagel x5  10.71\nMilk x1  19.73\nTOTAL  68.47"
+ },
+ {
+  "file": "ocr_04_sentence_blur.png",
+  "kind": "sentence",
+  "effect": "blur",
+  "text": "Jumps fox token matrix process voltage buffer buffer network fan.\nTensor kernel over fan matrix switch signal."
+ },
+ {
+  "file": "ocr_05_numbers_blur.png",
+  "kind": "numbers",
+  "effect": "blur",
+  "text": "Order #89817  SKU B220-75  Qty 27  $169.96"
+ },
+ {
+  "file": "ocr_06_code_blur.png",
+  "kind": "code",
+  "effect": "blur",
+  "text": "for i in range(10):\n    print(i * 2)"
+ },
+ {
+  "file": "ocr_07_receipt_blur.png",
+  "kind": "receipt",
+  "effect": "blur",
+  "text": "Rice x1  22.09\nApples x3  23.44\nTea x5  26.58\nBagel x1  9.60\nTOTAL  36.07"
+ },
+ {
+  "file": "ocr_08_sentence_rotate.png",
+  "kind": "sentence",
+  "effect": "rotate",
+  "text": "Signal thermal packet bridge quick buffer bridge cache.\nDog matrix fox token thermal server kernel socket socket matrix."
+ },
+ {
+  "file": "ocr_09_numbers_rotate.png",
+  "kind": "numbers",
+  "effect": "rotate",
+  "text": "Order #68875  SKU G662-45  Qty 9  $839.55"
+ },
+ {
+  "file": "ocr_10_code_rotate.png",
+  "kind": "code",
+  "effect": "rotate",
+  "text": "items = [n for n in data if n % 3 == 0]\ntotal = sum(items)"
+ },
+ {
+  "file": "ocr_11_receipt_rotate.png",
+  "kind": "receipt",
+  "effect": "rotate",
+  "text": "Eggs x2  3.22\nMilk x2  22.29\nCoffee x4  27.75\nMilk x3  10.00\nTOTAL  57.53"
+ },
+ {
+  "file": "ocr_12_sentence_noise.png",
+  "kind": "sentence",
+  "effect": "noise",
+  "text": "Voltage server fox buffer socket socket socket socket lazy vector.\nFox model jumps token signal cache dog switch fox."
+ },
+ {
+  "file": "ocr_13_numbers_noise.png",
+  "kind": "numbers",
+  "effect": "noise",
+  "text": "Order #99326  SKU E102-96  Qty 46  $766.55"
+ },
+ {
+  "file": "ocr_14_code_noise.png",
+  "kind": "code",
+  "effect": "noise",
+  "text": "items = [n for n in data if n % 3 == 0]\ntotal = sum(items)"
+ },
+ {
+  "file": "ocr_15_receipt_noise.png",
+  "kind": "receipt",
+  "effect": "noise",
+  "text": "Bread x2  30.01\nApples x4  14.23\nTea x3  20.60\nCoffee x3  23.40\nTOTAL  136.09"
+ },
+ {
+  "file": "ocr_16_sentence_clean.png",
+  "kind": "sentence",
+  "effect": "clean",
+  "text": "Packet thread lazy token packet driver token vector.\nVoltage over socket jumps power model."
+ },
+ {
+  "file": "ocr_17_numbers_clean.png",
+  "kind": "numbers",
+  "effect": "clean",
+  "text": "Order #34273  SKU B332-55  Qty 19  $25.31"
+ },
+ {
+  "file": "ocr_18_code_clean.png",
+  "kind": "code",
+  "effect": "clean",
+  "text": "def add(a, b):\n    return a + b"
+ },
+ {
+  "file": "ocr_19_receipt_clean.png",
+  "kind": "receipt",
+  "effect": "clean",
+  "text": "Tea x2  28.72\nMilk x1  7.10\nBread x5  18.51\nCoffee x1  26.91\nTOTAL  106.96"
+ },
+ {
+  "file": "ocr_20_sentence_blur.png",
+  "kind": "sentence",
+  "effect": "blur",
+  "text": "Driver brown model model matrix tensor kernel.\nThermal fan power process over brown."
+ },
+ {
+  "file": "ocr_21_numbers_blur.png",
+  "kind": "numbers",
+  "effect": "blur",
+  "text": "Order #85667  SKU D244-78  Qty 35  $927.27"
+ },
+ {
+  "file": "ocr_22_code_blur.png",
+  "kind": "code",
+  "effect": "blur",
+  "text": "items = [n for n in data if n % 3 == 0]\ntotal = sum(items)"
+ },
+ {
+  "file": "ocr_23_receipt_blur.png",
+  "kind": "receipt",
+  "effect": "blur",
+  "text": "Bread x5  19.15\nRice x4  29.26\nMilk x1  8.63\nCoffee x1  15.04\nTOTAL  42.34"
+ }
+]

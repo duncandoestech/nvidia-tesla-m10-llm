@@ -1,0 +1,44 @@
+diff --git a/ggml/src/ggml-cuda/mmvq.cu b/ggml/src/ggml-cuda/mmvq.cu
+index 8f79123af..d9e82dc75 100644
+--- a/ggml/src/ggml-cuda/mmvq.cu
++++ b/ggml/src/ggml-cuda/mmvq.cu
+@@ -100,7 +100,8 @@ enum mmvq_parameter_table_id {
+     MMVQ_PARAMETERS_RDNA2,
+     MMVQ_PARAMETERS_RDNA3_0,
+     MMVQ_PARAMETERS_RDNA4,
+-    MMVQ_PARAMETERS_GB10
++    MMVQ_PARAMETERS_GB10,
++    MMVQ_PARAMETERS_MAXWELL
+ };
+ 
+ static constexpr __device__ mmvq_parameter_table_id get_device_table_id() {
+@@ -116,6 +117,8 @@ static constexpr __device__ mmvq_parameter_table_id get_device_table_id() {
+     return MMVQ_PARAMETERS_TURING;
+ #elif __CUDA_ARCH__ == GGML_CUDA_CC_DGX_SPARK
+     return MMVQ_PARAMETERS_GB10;
++#elif defined(__CUDA_ARCH__) && __CUDA_ARCH__ < GGML_CUDA_CC_PASCAL
++    return MMVQ_PARAMETERS_MAXWELL;
+ #else
+     return MMVQ_PARAMETERS_GENERIC;
+ #endif
+@@ -140,6 +143,9 @@ static __host__ mmvq_parameter_table_id get_device_table_id(int cc) {
+     if (GGML_CUDA_CC_IS_NVIDIA(cc) && ggml_cuda_highest_compiled_arch(cc) == GGML_CUDA_CC_DGX_SPARK) {
+         return MMVQ_PARAMETERS_GB10;
+     }
++    if (GGML_CUDA_CC_IS_NVIDIA(cc) && ggml_cuda_highest_compiled_arch(cc) < GGML_CUDA_CC_PASCAL) {
++        return MMVQ_PARAMETERS_MAXWELL;
++    }
+     return MMVQ_PARAMETERS_GENERIC;
+ }
+ 
+@@ -594,6 +600,10 @@ static constexpr __host__ __device__ bool mmvq_two_rows_ncols1(ggml_type type) {
+ }
+ 
+ static constexpr __host__ __device__ int calc_rows_per_block(ggml_type type, int ncols_dst, int table_id, bool small_k = false, int nwarps = 1) {
++    // Maxwell has no dp4a, so MMVQ is compute bound. One warp per block (calc_nwarps default) with 4 rows reuses the q8_1 loads and skips the shared memory reduction.
++    if (table_id == MMVQ_PARAMETERS_MAXWELL) {
++        return ncols_dst <= 8 ? 4 : 1;
++    }
+     if (table_id == MMVQ_PARAMETERS_GENERIC || table_id == MMVQ_PARAMETERS_GCN || table_id == MMVQ_PARAMETERS_TURING || table_id == MMVQ_PARAMETERS_GB10) {
+         switch (ncols_dst) {
+             case 1:

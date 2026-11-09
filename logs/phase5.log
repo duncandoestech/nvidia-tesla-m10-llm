@@ -1,0 +1,22 @@
+== A: four independent copies (aggregate throughput)
+  p5-4copy-llama-2-7b.Q4_0 pp512: per-GPU [65.4, 65.39, 66.12, 64.97] sum 261.88
+  p5-4copy-llama-2-7b.Q4_0 tg128: per-GPU [12.33, 12.25, 12.14, 12.13] sum 48.84
+== B: one model, tensor split over 4 GPUs vs 1 GPU (single stream)
+p5-tensor4-Qwen3.5-2B-Q4_0-head_q4_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 53 maxP= 40.69 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=tensor pp512     624.57 ± 1.06
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=tensor tg128      28.78 ± 0.63
+p5-tensor4-llama-2-7b.Q4_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 58 maxP= 48.74 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=tensor pp512     189.04 ± 0.03
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=tensor tg128      29.44 ± 0.05
+== C: batched decode on one GPU, tuned vs stock
+|    PP |     TG |    B |   N_KV |   T_PP s | S_PP t/s |   T_TG s | S_TG t/s |      T s |    S t/s |
+|-------|--------|------|--------|----------|----------|----------|----------|----------|----------|
+|   128 |    128 |    1 |    256 |    0.685 |   186.97 |    3.449 |    37.11 |    4.134 |    61.93 |
+|   128 |    128 |    2 |    512 |    1.034 |   247.54 |    5.542 |    46.20 |    6.576 |    77.86 |
+|   128 |    128 |    4 |   1024 |    1.796 |   285.01 |    9.246 |    55.37 |   11.043 |    92.73 |
+|   128 |    128 |    8 |   2048 |    3.522 |   290.76 |   15.881 |    64.48 |   19.402 |   105.55 |
+|   128 |    128 |   16 |   4096 |    7.337 |   279.12 |   78.287 |    26.16 |   85.624 |    47.84 |
+|   128 |    128 |   32 |   8192 |   14.465 |   283.17 |   82.982 |    49.36 |   97.446 |    84.07 |
+  NO RESULTS p5-batched-stock
+/opt/nvidia/nvidia_entrypoint.sh: line 67: /data/m10/llama.cpp/build-sm50/bin/llama-batched-bench: No such file or directory
+PHASE5_DONE

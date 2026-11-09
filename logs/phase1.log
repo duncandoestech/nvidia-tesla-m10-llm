@@ -1,0 +1,47 @@
+OK   llama-2-7b.Q4_0.gguf
+OK   Qwen3-1.7B-Q4_0.gguf
+OK   Qwen3-1.7B-Q8_0.gguf
+OK   Qwen3.5-2B-BF16.gguf
+OK   Qwen3.5-2B-IQ4_NL.gguf
+OK   Qwen3.5-2B-IQ4_XS.gguf
+OK   Qwen3.5-2B-Q4_0.gguf
+OK   Qwen3.5-2B-Q4_K_M.gguf
+OK   Qwen3.5-2B-Q5_K_M.gguf
+OK   Qwen3.5-2B-Q6_K.gguf
+OK   Qwen3.5-2B-Q8_0.gguf
+p1-Qwen3.5-2B-Q4_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 49 maxP= 53.58 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     285.92 ± 2.31
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      20.58 ± 0.36
+p1-Qwen3.5-2B-Q4_K_M rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 53 maxP= 55.26 W
+  qwen35 2B Q4_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     292.57 ± 1.73
+  qwen35 2B Q4_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      17.70 ± 0.07
+p1-Qwen3.5-2B-Q5_K_M rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 54.88 W
+  qwen35 2B Q5_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     306.79 ± 6.48
+  qwen35 2B Q5_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      16.87 ± 0.04
+p1-Qwen3.5-2B-Q6_K rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 53.95 W
+  qwen35 2B Q6_K               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     304.94 ± 5.87
+  qwen35 2B Q6_K               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      16.57 ± 0.43
+p1-Qwen3.5-2B-Q8_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 54.07 W
+  qwen35 2B Q8_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     289.98 ± 1.15
+  qwen35 2B Q8_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      18.05 ± 0.17
+p1-Qwen3.5-2B-IQ4_XS rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 56 maxP= 54.21 W
+  qwen35 2B IQ4_XS - 4.25 bpw  f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     283.65 ± 1.89
+  qwen35 2B IQ4_XS - 4.25 bpw  f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      19.89 ± 0.01
+p1-Qwen3.5-2B-IQ4_NL rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 56 maxP= 53.96 W
+  qwen35 2B IQ4_NL - 4.5 bpw   f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     281.42 ± 4.08
+  qwen35 2B IQ4_NL - 4.5 bpw   f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      18.55 ± 0.14
+p1-Qwen3.5-2B-BF16 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 54 maxP= 54.03 W
+  qwen35 2B BF16               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     315.51 ± 9.92
+  qwen35 2B BF16               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.64 ± 0.21
+p1-Qwen3-1.7B-Q4_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 53.26 W
+  qwen3 1.7B Q4_0              f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     278.24 ± 3.91
+  qwen3 1.7B Q4_0              f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      23.55 ± 0.13
+p1-Qwen3-1.7B-Q8_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 54 maxP= 55.40 W
+  qwen3 1.7B Q8_0              f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     284.82 ± 1.99
+  qwen3 1.7B Q8_0              f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      19.88 ± 0.13
+p1-ref-llama2-7b-q4_0 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 61 maxP= 55.71 W
+  llama 7B Q4_0                f16/f16 fa=0 b=2048 ub=512 sm=layer pp512      64.85 ± 0.56
+  llama 7B Q4_0                f16/f16 fa=0 b=2048 ub=512 sm=layer tg128       8.16 ± 0.33
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      64.38 ± 0.29
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128       8.71 ± 0.42
+PHASE1_DONE

@@ -1,0 +1,22 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.9.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7f5d4736dd90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f5d4736de40]
+/data/m10/llama.cpp/build-sm50/bin/test-backend-ops(+0x25ee5)[0x561b5a390ee5]
+2/2 backends passed
+[1;32mOK[0m
+2/2 backends passed
+[1;32mOK[0m

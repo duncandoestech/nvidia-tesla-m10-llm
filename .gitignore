@@ -1,0 +1,12 @@
+*.gguf
+*.nsys-rep
+*.sqlite
+*.cubin
+models/
+.DS_Store
+*.swp
+.env
+*.key
+*.pem
+evals/data/scifact/
+evals/data/scifact.zip

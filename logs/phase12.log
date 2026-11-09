@@ -1,0 +1,24 @@
+built
+p12-smoke rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 36 maxP= 19.21 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg8        43.00 ± 0.00
+p12-best-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 44 maxP= 52.78 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      42.53 ± 0.00
+p12-graphs-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 45 maxP= 53.72 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      41.72 ± 0.30
+p12-best-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 48 maxP= 55.13 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      13.29 ± 0.40
+p12-graphs-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 51 maxP= 53.12 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.26 ± 0.30
+p12-best-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 52 maxP= 52.91 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      42.17 ± 0.45
+p12-graphs-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 52 maxP= 53.39 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      42.27 ± 1.46
+p12-best-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 54 maxP= 55.53 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.75 ± 0.18
+p12-graphs-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 56 maxP= 53.48 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      14.98 ± 0.21
+p12-best-moe rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 48 maxP= 29.66 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.48 ± 3.15
+p12-graphs-moe rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 38 maxP= 29.76 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      13.05 ± 3.66
+PHASE12_DONE

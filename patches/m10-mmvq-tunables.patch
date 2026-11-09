@@ -1,0 +1,138 @@
+diff --git a/ggml/src/ggml-cuda/common.cuh b/ggml/src/ggml-cuda/common.cuh
+index bc83ea375..da529ab89 100644
+--- a/ggml/src/ggml-cuda/common.cuh
++++ b/ggml/src/ggml-cuda/common.cuh
+@@ -751,9 +751,21 @@ static __device__ __forceinline__ int ggml_cuda_dp4a(const int a, const int b, i
+ #if __CUDA_ARCH__ >= GGML_CUDA_CC_DP4A || defined(GGML_USE_MUSA)
+     return __dp4a(a, b, c);
+ #else // __CUDA_ARCH__ >= GGML_CUDA_CC_DP4A || defined(GGML_USE_MUSA)
++#if defined(M10_VMAD)
++    // Maxwell/GP100 have no DP4A. PTX vmad with byte selectors maps to native VMAD.S8.S8 on sm_50
++    // (4 SASS ops instead of 4 XMAD + ~6 byte extracts). Idea from shinbunbun/llama-cpp-p100-patches #01.
++    int r = c;
++    asm("vmad.s32.s32.s32 %0, %1.b0, %2.b0, %0;\n\t"
++        "vmad.s32.s32.s32 %0, %1.b1, %2.b1, %0;\n\t"
++        "vmad.s32.s32.s32 %0, %1.b2, %2.b2, %0;\n\t"
++        "vmad.s32.s32.s32 %0, %1.b3, %2.b3, %0;"
++        : "+r"(r) : "r"(a), "r"(b));
++    return r;
++#else
+     const int8_t * a8 = (const int8_t *) &a;
+     const int8_t * b8 = (const int8_t *) &b;
+     return c + a8[0]*b8[0] + a8[1]*b8[1] + a8[2]*b8[2] + a8[3]*b8[3];
++#endif // M10_VMAD
+ #endif // __CUDA_ARCH__ >= GGML_CUDA_CC_DP4A || defined(GGML_USE_MUSA)
+ 
+ #endif // defined(GGML_USE_HIP)
+diff --git a/ggml/src/ggml-cuda/ggml-cuda.cu b/ggml/src/ggml-cuda/ggml-cuda.cu
+index 9c467ce95..045bcbf2c 100644
+--- a/ggml/src/ggml-cuda/ggml-cuda.cu
++++ b/ggml/src/ggml-cuda/ggml-cuda.cu
+@@ -5115,7 +5115,11 @@ static bool ggml_cuda_graph_set_enabled(ggml_backend_cuda_context * cuda_ctx, co
+     ggml_cuda_graph * graph = cuda_ctx->cuda_graph(graph_key);
+ 
+     if (graph->instances.empty()) {
++#ifndef M10_GRAPHS
+         if (ggml_cuda_info().devices[cuda_ctx->device].cc < GGML_CUDA_CC_VOLTA) {
++#else
++        if (false) { // M10 experiment: allow CUDA graphs below Volta
++#endif
+             if (!graph->disable_due_to_gpu_arch && ggml_cuda_graph_debug_enabled()) {
+                 GGML_LOG_DEBUG("%s: disabling CUDA graphs due to GPU architecture\n", __func__);
+             }
+diff --git a/ggml/src/ggml-cuda/mmvq.cu b/ggml/src/ggml-cuda/mmvq.cu
+index 8f79123af..f80116838 100644
+--- a/ggml/src/ggml-cuda/mmvq.cu
++++ b/ggml/src/ggml-cuda/mmvq.cu
+@@ -452,6 +452,12 @@ static constexpr __device__ int get_mmvq_mmid_max_batch_for_device() {
+ 
+ static constexpr __host__ __device__ int calc_nwarps(ggml_type type, int ncols_dst, mmvq_parameter_table_id table_id, bool small_k = false, bool halve_iters = false) {
+     if (table_id == MMVQ_PARAMETERS_GENERIC) {
++#ifdef M10_NW1
++        if (ncols_dst == 1) { return M10_NW1; }
++#endif
++#ifdef M10_NWB
++        if (ncols_dst > 1 && ncols_dst <= 8) { return M10_NWB; }
++#endif
+         switch (ncols_dst) {
+             case 1:
+             case 2:
+@@ -603,6 +609,9 @@ static constexpr __host__ __device__ int calc_rows_per_block(ggml_type type, int
+                 if (table_id == MMVQ_PARAMETERS_GB10) {
+                     return type == GGML_TYPE_IQ2_S || type == GGML_TYPE_IQ3_S ? 2 : 1;
+                 }
++#ifdef M10_RPB1
++                if (table_id == MMVQ_PARAMETERS_GENERIC) { return M10_RPB1; }
++#endif
+                 return table_id == MMVQ_PARAMETERS_GENERIC && mmvq_two_rows_ncols1(type) ? 2 : 1;
+             case 2:
+             case 3:
+@@ -611,6 +620,9 @@ static constexpr __host__ __device__ int calc_rows_per_block(ggml_type type, int
+             case 6:
+             case 7:
+             case 8:
++#ifdef M10_RPBB
++                if (table_id == MMVQ_PARAMETERS_GENERIC) { return M10_RPBB; }
++#endif
+                 return 2;
+             default:
+                 return 1;
+@@ -981,7 +993,14 @@ static __global__ void mul_mat_vec_q_moe(
+ 
+     // Write results
+     if (threadIdx.x < c_rows_per_block && (c_rows_per_block == 1 || uint32_t(row0 + threadIdx.x) < nrows_x)) {
++#ifdef M10_MOE_NOSPILL
++        // Indexing tmp[] with threadIdx.x puts it in local memory on sm_5x (cf. ik_llama.cpp #2721); select with an unrolled compare.
++        float result = tmp[0];
++#pragma unroll
++        for (int i = 1; i < c_rows_per_block; ++i) { if (threadIdx.x == i) { result = tmp[i]; } }
++#else
+         float result = tmp[threadIdx.x];
++#endif
+         if constexpr (has_fusion) {
+             const uint32_t bias_idx = channel_x*stride_channel_dst + row0 + threadIdx.x;
+ 
+@@ -994,7 +1013,13 @@ static __global__ void mul_mat_vec_q_moe(
+                 result += x_bias[bias_idx];
+             }
+             if (use_gate) {
++#ifdef M10_MOE_NOSPILL
++                float gate_value = tmp_gate[0];
++#pragma unroll
++                for (int i = 1; i < c_rows_per_block; ++i) { if (threadIdx.x == i) { gate_value = tmp_gate[i]; } }
++#else
+                 float gate_value = tmp_gate[threadIdx.x];
++#endif
+                 if constexpr (type == GGML_TYPE_NVFP4) {
+                     if (gate_scale) {
+                         gate_value *= gate_scale[channel_x];
+@@ -1085,7 +1110,11 @@ static void mul_mat_vec_q_moe_launch(
+         const uint32_t ncols_dst, const uint32_t ids_stride,
+         const int warp_size, const int nchannels_dst, cudaStream_t stream) {
+ 
++#ifdef M10_MOE_RPB
++    constexpr int rows_per_block = M10_MOE_RPB; // M10 tuning override
++#else
+     constexpr int rows_per_block = 2; // 2 gives best perf based on tuning
++#endif
+     const int64_t nblocks_rows = (nrows_x + rows_per_block - 1) / rows_per_block;
+     const dim3 block_nums(nblocks_rows, nchannels_dst + (fusion.shared_up != nullptr));
+     const dim3 block_dims(warp_size, ncols_dst);
+diff --git a/src/llama-context.cpp b/src/llama-context.cpp
+index a450d8257..fd49ed8f9 100644
+--- a/src/llama-context.cpp
++++ b/src/llama-context.cpp
+@@ -2250,7 +2250,13 @@ int llama_context::decode(const llama_batch_ext & batch_inp) {
+         }
+ 
+         // extract logits
++#ifdef M10_POOLED_NO_LOGITS
++        // llama.cpp issue #30422: pooled embedding/rerank batches never read raw logits; skip the n_vocab D2H copy.
++        const bool pooled_embd = cparams.embeddings && cparams.pooling_type != LLAMA_POOLING_TYPE_NONE;
++        if (!pooled_embd && logits.data && t_logits && n_outputs > 0 && needs_raw_logits(ubatch, sampling.samplers)) {
++#else
+         if (logits.data && t_logits && n_outputs > 0 && needs_raw_logits(ubatch, sampling.samplers)) {
++#endif
+             ggml_backend_t backend_res = ggml_backend_sched_get_tensor_backend(sched.get(), t_logits);
+             GGML_ASSERT(backend_res != nullptr);
+             GGML_ASSERT(logits.data != nullptr);

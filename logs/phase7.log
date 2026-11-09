@@ -1,0 +1,77 @@
+== build vmad
+== vmad correctness
+  684/684 tests passed
+2/2 backends passed
+== vmad A/B (GPU 0, tg128)
+p7-base-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 43 maxP= 53.75 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      37.95 ± 0.36
+p7-vmad-Qwen3.5-2B-Q4_0-head_q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 46 maxP= 52.33 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      42.33 ± 0.27
+p7-base-Qwen3.5-2B-Q4_K_M-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 48 maxP= 54.21 W
+  qwen35 2B Q4_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      27.18 ± 0.61
+p7-vmad-Qwen3.5-2B-Q4_K_M-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 50 maxP= 55.32 W
+  qwen35 2B Q4_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      28.32 ± 0.41
+p7-base-Qwen3.5-2B-Q8_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 51 maxP= 53.00 W
+  qwen35 2B Q8_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      25.09 ± 0.67
+p7-vmad-Qwen3.5-2B-Q8_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 52 maxP= 52.99 W
+  qwen35 2B Q8_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      26.06 ± 0.00
+p7-base-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 51 maxP= 55.61 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.44 ± 0.34
+p7-vmad-llama-2-7b.Q4_0-r1 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 53 maxP= 55.49 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.58 ± 0.06
+p7-base-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 52 maxP= 52.82 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      37.60 ± 0.47
+p7-vmad-Qwen3.5-2B-Q4_0-head_q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 54 maxP= 52.81 W
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      41.87 ± 0.49
+p7-base-Qwen3.5-2B-Q4_K_M-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 54 maxP= 55.21 W
+  qwen35 2B Q4_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      27.45 ± 0.41
+p7-vmad-Qwen3.5-2B-Q4_K_M-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 55.10 W
+  qwen35 2B Q4_K - Medium      f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      29.69 ± 1.49
+p7-base-Qwen3.5-2B-Q8_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 53.46 W
+  qwen35 2B Q8_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      24.43 ± 0.42
+p7-vmad-Qwen3.5-2B-Q8_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 55 maxP= 53.34 W
+  qwen35 2B Q8_0               f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      24.63 ± 0.62
+p7-base-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 56 maxP= 55.38 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.23 ± 0.07
+p7-vmad-llama-2-7b.Q4_0-r2 rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 57 maxP= 55.55 W
+  llama 7B Q4_0                f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      13.92 ± 0.97
+== MoE sweep (4 GPUs, layer split)
+p7-moe-tuned-Qwen3.6-35B-A3B-MTP-UD-Q2_K_XL rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 47 maxP= 48.67 W
+  qwen35moe 35B.A3B Q2_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      65.80 ± 0.45
+  qwen35moe 35B.A3B Q2_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      14.48 ± 0.24
+p7-moe-tuned-Qwen3.6-35B-A3B-MTP-UD-Q3_K_XL rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 44 maxP= 49.74 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      68.91 ± 1.21
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      14.29 ± 0.02
+p7-moe-stock-Qwen3.6-35B-A3B-MTP-UD-Q3_K_XL rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 45 maxP= 52.14 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      68.38 ± 1.17
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128       9.27 ± 0.02
+p7-moe-tuned-Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 44 maxP= 52.61 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      85.30 ± 1.08
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      15.60 ± 0.01
+p7-moe-stock-Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 45 maxP= 52.58 W
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      84.61 ± 0.99
+  qwen35moe 35B.A3B Q4_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      11.08 ± 0.00
+p7-moe-tuned-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-UD-Q4_K_XL rc=0 prod_busy_before=1 prod_busy_after=0 maxT= 46 maxP= 54.39 W
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      70.17 ± 0.04
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      16.90 ± 0.01
+p7-moe-stock-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-UD-Q4_K_XL rc=0 prod_busy_before=0 prod_busy_after=0 maxT= 46 maxP= 55.47 W
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=2048 ub=512 sm=layer pp512      69.89 ± 0.69
+  nemotron_h_moe 31B.A3.5B Q4_ f16/f16 fa=1 b=2048 ub=512 sm=layer tg128      12.72 ± 0.01
+== MoE ubatch sweep (Q3)
+p7-moe-ub rc=0 prod_busy_before=0 prod_busy_after=1 maxT= 62 maxP= 56.90 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=128 sm=layer pp2048     42.45 ± 0.14
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=256 sm=layer pp2048     52.56 ± 0.32
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp2048     66.26 ± 0.36
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=1024 sm=layer pp2048     81.62 ± 0.62
+== long-prompt flash attention (head size 256)
+p7-fa-2b rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 66 maxP= 55.29 W
+  qwen35 2B Q4_0               f16/f16 fa=0 b=2048 ub=512 sm=layer pp512     284.80 ± 5.59
+  qwen35 2B Q4_0               f16/f16 fa=0 b=2048 ub=512 sm=layer pp2048    289.31 ± 0.16
+  qwen35 2B Q4_0               f16/f16 fa=0 b=2048 ub=512 sm=layer pp4096    283.15 ± 1.31
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp512     280.91 ± 4.67
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp2048    281.98 ± 1.07
+  qwen35 2B Q4_0               f16/f16 fa=1 b=2048 ub=512 sm=layer pp4096    268.89 ± 0.19
+p7-fa-moe rc=0 prod_busy_before=1 prod_busy_after=1 maxT= 60 maxP= 54.31 W
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=0 b=2048 ub=512 sm=layer pp4096     66.49 ± 0.12
+  qwen35moe 35B.A3B Q3_K - Med f16/f16 fa=1 b=2048 ub=512 sm=layer pp4096     63.82 ± 0.73
+PHASE7_DONE
